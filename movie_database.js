@@ -1702,26 +1702,52 @@ const movies = [
 
 let container = document.getElementById("movies");
 
-for (let i = 0; i < movies.length; i++) {
-  const element = movies[i];
+function show(array) {
+  container.innerHTML = ""
+  for (let i = 0; i < array.length; i++) {
+    const element = array[i];
 
-  let card = document.createElement("div");
-  card.classList.add("card");
-  container.appendChild(card);
+    let card = document.createElement("div");
+    card.classList.add("card");
+    container.appendChild(card);
 
-  let poster = document.createElement("img");
-  poster.src = `http://image.tmdb.org/t/p/w342${element.poster_path}`;
-  card.appendChild(poster);
+    let poster = document.createElement("img");
+    poster.src = `http://image.tmdb.org/t/p/w342${element.poster_path}`;
+    card.appendChild(poster);
 
-  let title = document.createElement("h2");
-  title.textContent = element.title;
-  card.appendChild(title);
+    let title = document.createElement("h2");
+    title.textContent = element.title;
+    card.appendChild(title);
 
-  let date = document.createElement("p");
-  date.textContent = element.release_date;
-  card.appendChild(date);
+    let date = document.createElement("p");
+    date.textContent = element.release_date;
+    card.appendChild(date);
 
-  let vote = document.createElement("h3");
-  vote.textContent = element.vote_average;
-  card.appendChild(vote);
+    let vote = document.createElement("h3");
+    vote.textContent = element.vote_average;
+    card.appendChild(vote);
+  }
 }
+
+show(movies)
+
+let votes = document.getElementById("votos");
+let olds = document.getElementById("antiguas");
+let news = document.getElementById("recientes");
+let all = document.getElementById("todas");
+
+votes.addEventListener("click", () => {
+  show(movies.filter((e) => e.vote_average > 8));
+});
+
+olds.addEventListener("click", () => {
+  show(movies.filter((e) => e.release_date < "2019"));
+});
+
+news.addEventListener("click", () => {
+  show(movies.filter((e) => e.release_date > "2019"));
+});
+
+all.addEventListener("click", () => {
+  show(movies)
+});
